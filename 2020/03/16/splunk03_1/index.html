@@ -132,30 +132,30 @@ var _hmt = _hmt || [];
 	  <blockquote>
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
-<h5 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h5><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个’-‘号</p>
+<h4 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h4><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个’-‘号。</p>
 <a id="more"></a>
 
-<h6 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h6><p>查看使用最多的浏览器，其中”|”将上一条命令的结果作为下一条命令的输入：</p>
+<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>查看使用最多的浏览器，其中’|’将上一条命令的结果作为下一条命令的输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; | top useragent</span><br></pre></td></tr></table></figure>
 
-<h6 id="eg2"><a href="#eg2" class="headerlink" title="eg2"></a>eg2</h6><p>查看排名前5的IP地址：</p>
+<h6 id="eg2"><a href="#eg2" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>查看排名前5的IP地址：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; | top limit=5 clientip</span><br></pre></td></tr></table></figure>
 
-<h6 id="eg3"><a href="#eg3" class="headerlink" title="eg3"></a>eg3</h6><p>查看排名前5的IP地址，排除percent列：</p>
+<h6 id="eg3"><a href="#eg3" class="headerlink" title="[eg3]"></a>[eg3]</h6><p>查看排名前5的IP地址，排除percent列：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; referer != *MyGizmo* | top referer | fields - percent</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-rare命令"><a href="#2-rare命令" class="headerlink" title="2. rare命令"></a>2. rare命令</h5><p>rare和top的作用完全相反，查找的是出现次数最少的值，用法和top类似。</p>
-<h6 id="3-stats命令"><a href="#3-stats命令" class="headerlink" title="3. stats命令"></a>3. stats命令</h6><p>对数据进行汇总，包括count、average、min、median、mode、sum等和SQL的聚合非常类似。</p>
-<h6 id="eg1-1"><a href="#eg1-1" class="headerlink" title="eg1"></a>eg1</h6><p>查看有多少404事件，其中status包含服务器对客户端HTTP请求进行响应的每一个状态码信息：</p>
+<h4 id="2-rare命令"><a href="#2-rare命令" class="headerlink" title="2. rare命令"></a>2. rare命令</h4><p>rare和top的作用完全相反，查找的是出现次数最少的值，用法和top类似。</p>
+<h4 id="3-stats命令"><a href="#3-stats命令" class="headerlink" title="3. stats命令"></a>3. stats命令</h4><p>对数据进行汇总，包括count、average、min、median、mode、sum等和SQL的聚合非常类似。</p>
+<h6 id="eg1-1"><a href="#eg1-1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>查看有多少404事件，其中status包含服务器对客户端HTTP请求进行响应的每一个状态码信息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; status=404 | stats count by host</span><br></pre></td></tr></table></figure>
 
-<h6 id="eg2-1"><a href="#eg2-1" class="headerlink" title="eg2"></a>eg2</h6><p>查出所有的购买操作，并计算每个产品对应的购买数量：</p>
+<h6 id="eg2-1"><a href="#eg2-1" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>查出所有的购买操作，并计算每个产品对应的购买数量：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot; action=purchase | stats count by productId</span><br></pre></td></tr></table></figure>
 
-<h6 id="eg3-1"><a href="#eg3-1" class="headerlink" title="eg3"></a>eg3</h6><p>计算出初<em>MyGizmo</em>外访问来源网站的总数：</p>
+<h6 id="eg3-1"><a href="#eg3-1" class="headerlink" title="[eg3]"></a>[eg3]</h6><p>计算出初<em>MyGizmo</em>外访问来源网站的总数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; referer != *MyGizmo* | top referer | fields - percent | stats avg(count)</span><br></pre></td></tr></table></figure>
 
-<h5 id="addcolTotals命令"><a href="#addcolTotals命令" class="headerlink" title="addcolTotals命令"></a>addcolTotals命令</h5><p>可将所有数据进行相加，生产一个新事件。查询所有已购买商品的识别码和售出总数，包括所有商品总售出量的汇总。</p>
+<h4 id="4-addcolTotals命令"><a href="#4-addcolTotals命令" class="headerlink" title="4. addcolTotals命令"></a>4. addcolTotals命令</h4><p>可将所有数据进行相加，生产一个新事件。查询所有已购买商品的识别码和售出总数，包括所有商品总售出量的汇总：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot; action=purchase | stats count by productId | addcoltotals labelfield=Total label=AllProducts</span><br></pre></td></tr></table></figure>	  
 	</div>
 
