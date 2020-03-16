@@ -133,6 +133,8 @@ var _hmt = _hmt || [];
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
 <h5 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h5><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个’-‘号</p>
+<a id="more"></a>
+
 <h6 id="eg1"><a href="#eg1" class="headerlink" title="eg1"></a>eg1</h6><p>查看使用最多的浏览器，其中”|”将上一条命令的结果作为下一条命令的输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; | top useragent</span><br></pre></td></tr></table></figure>
 
