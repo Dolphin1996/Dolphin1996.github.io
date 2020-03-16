@@ -137,7 +137,7 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2020/03/16/splunk03_1/" >Splunk笔记03-SPL报表命令</a>
+			<a href="/2020/03/16/splunk笔记03/" >Splunk笔记03-SPL报表命令</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -157,7 +157,78 @@ var _hmt = _hmt || [];
 <h4 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h4><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个’-‘号。</p>
 	
 	</div>
-  <a type="button" href="/2020/03/16/splunk03_1/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2020/03/16/splunk笔记03/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2020/03/16/splunk笔记05-SPL聚合命令/" >Splunk笔记03-SPL聚合命令</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-03-16  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>《Big Data Analytics Using Splunk》</p>
+</blockquote>
+<h4 id="1-transaction命令"><a href="#1-transaction命令" class="headerlink" title="1. transaction命令"></a>1. transaction命令</h4><p>将时间聚合成一个事务，通过定义约束条件来确定事务的开始和结束。</p>
+<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>分析页面浏览量和真实的购买量，根据特定的会话ID (JSESSIONIP) 和同一IP地址（客户端）进行聚合:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=access_* </span><br><span class="line">| transaction JSESSIONID clientip startswith=&quot;addtocart&quot; endswith=&quot;purchase&quot;</span><br></pre></td></tr></table></figure>
+
+<h6 id="eg2"><a href="#eg2" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>花费较长或较短时间完成购买的用户，可以使用会话时间对事务进行聚合。查询会话时间不超过10分钟、不超过3个事件以及在相同IP的客户端进行的购买操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=access_* action = purchase</span><br><span class="line">| transaction clientip maxspan=10m maxevents=3</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-rename命令"><a href="#2-rename命令" class="headerlink" title="2. rename命令"></a>2. rename命令</h4><p>更改列名。</p>
+<h6 id="eg1-1"><a href="#eg1-1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>查找服务器由于错误，导致用户购买操作失败的事件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=access_* status &gt;=500 action=purchase | stats count by productId | sort - count | rename count as &quot;Product Units In Failed Transactions&quot;</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2020/03/16/splunk笔记05-SPL聚合命令/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2020/03/16/splunk笔记04/" >Splunk笔记03-SPL排序、过滤、修改命令</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-03-16  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>《Big Data Analytics Using Splunk》</p>
+</blockquote>
+<h4 id="1-sort命令"><a href="#1-sort命令" class="headerlink" title="1. sort命令"></a>1. sort命令</h4><p>是SPL排序命令中最主要的一个，升序降序用’+’和’-‘控制。</p>
+<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>将商品的购买次数进行降序排列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; action=purchase | stats count by productId | sort - count</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2020/03/16/splunk笔记04/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -184,12 +255,11 @@ var _hmt = _hmt || [];
 		<blockquote>
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
-<h4 id="1-主要功能"><a href="#1-主要功能" class="headerlink" title="1. 主要功能"></a>1. 主要功能</h4><p>  从本质上来说，Splunk是一个实时的时间序列索引器，主要功能包括：</p>
+<h4 id="1-主要功能"><a href="#1-主要功能" class="headerlink" title="1. 主要功能"></a>1. 主要功能</h4><p>从本质上来说，Splunk是一个实时的时间序列索引器，主要功能包括：</p>
 <ul>
 <li>数据采集</li>
 <li>索引</li>
-<li>检索分析和可视化</li>
-</ul>
+<li>检索分析和可视化
 	
 	</div>
   <a type="button" href="/2020/03/15/splunk笔记01/#more" class="btn btn-default more">Read More</a>
@@ -233,7 +303,7 @@ var _hmt = _hmt || [];
 		<h4>Categories</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/Splunk/">Splunk<span>2</span></a></li>
+			<li><a href="/categories/Splunk/">Splunk<span>4</span></a></li>
 		
 		</ul>
 	</div>
@@ -244,7 +314,7 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/数据分析/">数据分析<span>2</span></a></li>
+			<li><a href="/tags/数据分析/">数据分析<span>4</span></a></li>
 		
 		 
 		</ul>
@@ -258,7 +328,15 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2020/03/16/splunk03_1/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL报表命令</a>
+        <a href="/2020/03/16/splunk笔记03/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL报表命令</a>
+      </li>
+    
+      <li>
+        <a href="/2020/03/16/splunk笔记05-SPL聚合命令/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL聚合命令</a>
+      </li>
+    
+      <li>
+        <a href="/2020/03/16/splunk笔记04/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL排序、过滤、修改命令</a>
       </li>
     
       <li>

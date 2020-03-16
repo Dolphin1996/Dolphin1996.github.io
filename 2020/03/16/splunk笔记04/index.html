@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Splunk笔记01-简介 | Dolphin</title>
+  <title>Splunk笔记03-SPL排序、过滤、修改命令 | Dolphin</title>
   <meta name="author" content="Dolphin">
   
   <meta name="description" content="Never say die">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Splunk笔记01-简介">
+  <meta property="og:title" content="Splunk笔记03-SPL排序、过滤、修改命令">
   <meta property="og:site_name" content="Dolphin">
 
   
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> Splunk笔记01-简介</h1>
+			<h1> Splunk笔记03-SPL排序、过滤、修改命令</h1>
 		</div>
 	
 
@@ -132,29 +132,27 @@ var _hmt = _hmt || [];
 	  <blockquote>
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
-<h4 id="1-主要功能"><a href="#1-主要功能" class="headerlink" title="1. 主要功能"></a>1. 主要功能</h4><p>从本质上来说，Splunk是一个实时的时间序列索引器，主要功能包括：</p>
+<h4 id="1-sort命令"><a href="#1-sort命令" class="headerlink" title="1. sort命令"></a>1. sort命令</h4><p>是SPL排序命令中最主要的一个，升序降序用’+’和’-‘控制。</p>
+<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>将商品的购买次数进行降序排列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; action=purchase | stats count by productId | sort - count</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<h4 id="2-head命令"><a href="#2-head命令" class="headerlink" title="2. head命令"></a>2. head命令</h4><p>限制事件数量，得到更小的子集。</p>
+<h6 id="eg1-1"><a href="#eg1-1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>查询前100个销量最好的商品：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; | head 100 | stats count by productId | sort - count</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-tail命令"><a href="#3-tail命令" class="headerlink" title="3. tail命令"></a>3. tail命令</h4><p>获取符合条件的后n个事件，作用和head相反。</p>
+<h4 id="4-dedup命令"><a href="#4-dedup命令" class="headerlink" title="4. dedup命令"></a>4. dedup命令</h4><p>删除冗余数据，值保留对特定字段组合值的第一次计数的结果。</p>
+<h4 id="5-eval命令"><a href="#5-eval命令" class="headerlink" title="5. eval命令"></a>5. eval命令</h4><p>提供多个函数，包括：</p>
 <ul>
-<li>数据采集</li>
-<li>索引</li>
-<li>检索分析和可视化<a id="more"></a>
-<h4 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h4></li>
+<li>标准函数：case、if等</li>
+<li>数学函数：abs、ceiling、floor、log、round等</li>
+<li>字符串函数：rtrim、split、substr、tostring等<h6 id="eg1-2"><a href="#eg1-2" class="headerlink" title="[eg1]"></a>[eg1]</h6>查找HTTP状态代码200的基本分布：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=access_*| eval SuccessRatio = if (status==200, &quot;OK&quot;, &quot;FAILED&quot;) | stats count by SuccessRatio</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
-<p>Splunk多用于处理机器数据或者运营数据，比如：</p>
-<ul>
-<li>应用程序和服务器产生的日志数据</li>
-<li>性能数据</li>
-<li>单击流数据：分析用户行为，比如购买商品、删除商品</li>
-<li>网络数据</li>
-<li>社会化媒体的数据</li>
-</ul>
-<h4 id="3-架构"><a href="#3-架构" class="headerlink" title="3. 架构"></a>3. 架构</h4><p>Splunk架构主要分为三层：</p>
-<p><img src="https://github.com/Dolphin1996/blog-image/blob/master/splunk%E6%9E%B6%E6%9E%84%E5%9B%BE.png?raw=true" alt="avatar"></p>
-<ul>
-<li>底层数据来源：Splunk可以从多种方式输入数据，从本地文件和目录、网络端口、脚本文件、Splunk转发器。</li>
-<li>中间层：底层数据分布式存储于索引器，索引器接受用户发起的检所请求并返回数据。</li>
-<li>用户可利用检索的数据进行分析、可视化、监测、定义警报等。</li>
-</ul>
-	  
+<h6 id="eg2"><a href="#eg2" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>找出购买量和页面浏览量的比例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=access_* method=GET | stats count AS Page_Views, count(eval(action=&quot;purchase&quot;)) AS Actual_Purchase | eval PCTofPurchases = (Actual_Purchase /Page_Views)</span><br></pre></td></tr></table></figure>	  
 	</div>
 
 	<div>
@@ -163,13 +161,14 @@ var _hmt = _hmt || [];
 
     
     
-    <a href="/2020/03/16/splunk笔记04/" type="button" class="btn btn-default"><i
+    <a href="/2020/03/16/splunk笔记05-SPL聚合命令/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a type="button" class="btn btn-default disabled">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+    <a href="/2020/03/15/splunk笔记01/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
     
 
     
@@ -197,7 +196,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-03-15 
+	2020-03-16 
 	</div>
 	
 
