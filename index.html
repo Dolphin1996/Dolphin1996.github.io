@@ -137,38 +137,6 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2020/03/16/splunk笔记04/" >Splunk笔记04-SPL排序、过滤、修改命令</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2020-03-16  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<blockquote>
-<p>《Big Data Analytics Using Splunk》</p>
-</blockquote>
-<h4 id="1-sort命令"><a href="#1-sort命令" class="headerlink" title="1. sort命令"></a>1. sort命令</h4><p>是SPL排序命令中最主要的一个，升序降序用’+’和’-‘控制。</p>
-<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>将商品的购买次数进行降序排列：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; action=purchase </span><br><span class="line">| stats count by productId </span><br><span class="line">| sort - count</span><br></pre></td></tr></table></figure>
-	
-	</div>
-  <a type="button" href="/2020/03/16/splunk笔记04/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
 			<a href="/2020/03/16/splunk笔记03/" >Splunk笔记03-SPL报表命令</a>
 		</h3>
 		</div>
@@ -186,10 +154,42 @@ var _hmt = _hmt || [];
 		<blockquote>
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
-<h4 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h4><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个’-‘号。</p>
+<h4 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h4><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个(-)号。</p>
 	
 	</div>
   <a type="button" href="/2020/03/16/splunk笔记03/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2020/03/16/splunk笔记04/" >Splunk笔记04-SPL排序、过滤、修改命令</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-03-16  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>《Big Data Analytics Using Splunk》</p>
+</blockquote>
+<h4 id="1-sort命令"><a href="#1-sort命令" class="headerlink" title="1. sort命令"></a>1. sort命令</h4><p>是SPL排序命令中最主要的一个，升序降序用(+)和(-)控制。</p>
+<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>将商品的购买次数进行降序排列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; action=purchase </span><br><span class="line">| stats count by productId </span><br><span class="line">| sort - count</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2020/03/16/splunk笔记04/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -320,11 +320,11 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2020/03/16/splunk笔记04/" ><i class="fa fa-file-o"></i>Splunk笔记04-SPL排序、过滤、修改命令</a>
+        <a href="/2020/03/16/splunk笔记03/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL报表命令</a>
       </li>
     
       <li>
-        <a href="/2020/03/16/splunk笔记03/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL报表命令</a>
+        <a href="/2020/03/16/splunk笔记04/" ><i class="fa fa-file-o"></i>Splunk笔记04-SPL排序、过滤、修改命令</a>
       </li>
     
       <li>
