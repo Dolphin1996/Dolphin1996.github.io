@@ -137,7 +137,38 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2020/03/16/splunk笔记03/" >Splunk笔记03-SPL报表命令</a>
+			<a href="/2020/03/17/splunk笔记06-可视化/" >Splunk笔记06-可视化</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2020-03-17  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<blockquote>
+<p>《Big Data Analytics Using Splunk》</p>
+</blockquote>
+<h4 id="1-chart"><a href="#1-chart" class="headerlink" title="1. chart"></a>1. chart</h4><h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>制作每一个主机的<code>GET</code>和<code>POST</code>事件数量的图表:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot;  </span><br><span class="line">| chart count(eval(method=&quot;GET&quot;)) AS get, count(eval(method=&quot;post&quot;)) AS post by host</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2020/03/17/splunk笔记06-可视化/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2020/03/16/splunk笔记05-SPL聚合命令/" >Splunk笔记05-SPL聚合命令</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -154,10 +185,11 @@ var _hmt = _hmt || [];
 		<blockquote>
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
-<h4 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h4><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个(-)号。</p>
+<h4 id="1-transaction命令"><a href="#1-transaction命令" class="headerlink" title="1. transaction命令"></a>1. transaction命令</h4><p>将时间聚合成一个事务，通过定义约束条件来确定事务的开始和结束。</p>
+<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>分析页面浏览量和真实的购买量，根据特定的会话ID (JSESSIONIP) 和同一IP地址（客户端）进行聚合:</p>
 	
 	</div>
-  <a type="button" href="/2020/03/16/splunk笔记03/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2020/03/16/splunk笔记05-SPL聚合命令/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -199,7 +231,7 @@ var _hmt = _hmt || [];
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2020/03/16/splunk笔记05-SPL聚合命令/" >Splunk笔记05-SPL聚合命令</a>
+			<a href="/2020/03/16/splunk笔记03/" >Splunk笔记03-SPL报表命令</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -216,11 +248,10 @@ var _hmt = _hmt || [];
 		<blockquote>
 <p>《Big Data Analytics Using Splunk》</p>
 </blockquote>
-<h4 id="1-transaction命令"><a href="#1-transaction命令" class="headerlink" title="1. transaction命令"></a>1. transaction命令</h4><p>将时间聚合成一个事务，通过定义约束条件来确定事务的开始和结束。</p>
-<h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>分析页面浏览量和真实的购买量，根据特定的会话ID (JSESSIONIP) 和同一IP地址（客户端）进行聚合:</p>
+<h4 id="1-top命令"><a href="#1-top命令" class="headerlink" title="1. top命令"></a>1. top命令</h4><p>查找出现次数最多的值，返回次数和百分比。默认返回排名前10的值，可用limit加以限制。field命令可以排除返回字段的某些属性值，在前面加一个(-)号。</p>
 	
 	</div>
-  <a type="button" href="/2020/03/16/splunk笔记05-SPL聚合命令/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2020/03/16/splunk笔记03/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -295,7 +326,7 @@ var _hmt = _hmt || [];
 		<h4>Categories</h4>
 		<ul class="tag_box inline list-unstyled">
 		
-			<li><a href="/categories/Splunk/">Splunk<span>4</span></a></li>
+			<li><a href="/categories/Splunk/">Splunk<span>5</span></a></li>
 		
 		</ul>
 	</div>
@@ -306,7 +337,7 @@ var _hmt = _hmt || [];
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/数据分析/">数据分析<span>4</span></a></li>
+			<li><a href="/tags/数据分析/">数据分析<span>5</span></a></li>
 		
 		 
 		</ul>
@@ -320,7 +351,11 @@ var _hmt = _hmt || [];
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2020/03/16/splunk笔记03/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL报表命令</a>
+        <a href="/2020/03/17/splunk笔记06-可视化/" ><i class="fa fa-file-o"></i>Splunk笔记06-可视化</a>
+      </li>
+    
+      <li>
+        <a href="/2020/03/16/splunk笔记05-SPL聚合命令/" ><i class="fa fa-file-o"></i>Splunk笔记05-SPL聚合命令</a>
       </li>
     
       <li>
@@ -328,7 +363,7 @@ var _hmt = _hmt || [];
       </li>
     
       <li>
-        <a href="/2020/03/16/splunk笔记05-SPL聚合命令/" ><i class="fa fa-file-o"></i>Splunk笔记05-SPL聚合命令</a>
+        <a href="/2020/03/16/splunk笔记03/" ><i class="fa fa-file-o"></i>Splunk笔记03-SPL报表命令</a>
       </li>
     
       <li>

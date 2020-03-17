@@ -141,7 +141,7 @@ var _hmt = _hmt || [];
 <h6 id="eg2"><a href="#eg2" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>查看排名前5的IP地址：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; </span><br><span class="line">| top limit=5 clientip</span><br></pre></td></tr></table></figure>
 
-<h6 id="eg3"><a href="#eg3" class="headerlink" title="[eg3]"></a>[eg3]</h6><p>查看排名前5的IP地址，排除percent列：</p>
+<h6 id="eg3"><a href="#eg3" class="headerlink" title="[eg3]"></a>[eg3]</h6><p>查看排名前5的网页地址，排除percent列：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sourcetype=&quot;access_combined_wcookie&quot; referer != *MyGizmo* </span><br><span class="line">| top referer </span><br><span class="line">| fields - percent</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-rare命令"><a href="#2-rare命令" class="headerlink" title="2. rare命令"></a>2. rare命令</h4><p>rare和top的作用完全相反，查找的是出现次数最少的值，用法和top类似。</p>
@@ -165,12 +165,13 @@ var _hmt = _hmt || [];
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2020/03/16/splunk笔记04/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/03/16/splunk笔记04/" type="button" class="btn btn-default ">Next<i
+    <a href="/2020/03/15/splunk笔记01/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -210,7 +211,7 @@ var _hmt = _hmt || [];
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/Splunk/">Splunk<span>4</span></a></li>
+    <li><a href="/categories/Splunk/">Splunk<span>5</span></a></li>
   </li>
 
     </ul>
@@ -223,7 +224,7 @@ var _hmt = _hmt || [];
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/数据分析/">数据分析<span>4</span></a></li>
+  <li><a href="/tags/数据分析/">数据分析<span>5</span></a></li>
     </ul>
 	</div>
 		
