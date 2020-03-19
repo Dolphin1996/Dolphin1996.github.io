@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Splunk笔记06-可视化 | Dolphin</title>
+  <title>Splunk笔记01-简介 | Dolphin</title>
   <meta name="author" content="Dolphin">
   
   <meta name="description" content="Never say die">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Splunk笔记06-可视化">
+  <meta property="og:title" content="Splunk笔记01-简介">
   <meta property="og:site_name" content="Dolphin">
 
   
@@ -112,7 +112,7 @@ var _hmt = _hmt || [];
 
 	
 		<div class="page-header">
-			<h1> Splunk笔记06-可视化</h1>
+			<h1> Splunk笔记01-简介</h1>
 		</div>
 	
 
@@ -130,36 +130,23 @@ var _hmt = _hmt || [];
 	  		
 
 	  <blockquote>
-<p>《Big Data Analytics Using Splunk》</p>
+<p>《Splunk Operational intelligence Cookbook》</p>
 </blockquote>
-<h4 id="1-chart"><a href="#1-chart" class="headerlink" title="1. chart"></a>1. chart</h4><h6 id="eg1"><a href="#eg1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>制作每一个主机的<code>GET</code>和<code>POST</code>事件数量的图表:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot;  </span><br><span class="line">| chart count(eval(method=&quot;GET&quot;)) AS get, count(eval(method=&quot;post&quot;)) AS post by host</span><br></pre></td></tr></table></figure>
-
+<h4 id="1-索引文件和目录"><a href="#1-索引文件和目录" class="headerlink" title="1. 索引文件和目录"></a>1. 索引文件和目录</h4><h6 id="方法1-：通过Splunk-GUI导入文件或目录"><a href="#方法1-：通过Splunk-GUI导入文件或目录" class="headerlink" title="[方法1]：通过Splunk GUI导入文件或目录"></a>[方法1]：通过Splunk GUI导入文件或目录</h6><p>当在Splunk Web添加一个新的文件或目录来导入数据时，等同于在<code>inputs.conf</code>文件添加新的配置节。</p>
 <a id="more"></a>
-<h6 id="eg2"><a href="#eg2" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>制作每一个产品类别的购买数和浏览数的图表:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot; method=GET </span><br><span class="line">| chart count AS views, count(eval(action=&quot;purchase&quot;)) AS purchases by categoryId </span><br><span class="line">| rename  categoryId AS Category</span><br></pre></td></tr></table></figure>
+<h6 id="方法2-：通过CLI（命令行界面）添加文件或目录输入"><a href="#方法2-：通过CLI（命令行界面）添加文件或目录输入" class="headerlink" title="[方法2]：通过CLI（命令行界面）添加文件或目录输入"></a>[方法2]：通过CLI（命令行界面）添加文件或目录输入</h6><p>进入<code>/splunk/bin</code>目录下打开终端输入命令，监控路径为<code>cp01_messages.log</code>所在的路径，<code>sourcetype</code>设置为<code>linux_messages</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mac@localhost bin % ./splunk add monitor /Users/mac/Desktop/cp01_messages.log -sourcetype linux_messages</span><br><span class="line">Splunk username: zwy</span><br><span class="line">Password: </span><br><span class="line">mac@localhost bin % ./splunk add monitor /Users/mac/Desktop/cp01_messages.log -sourcetype linux_messages</span><br><span class="line">Added monitor of &apos;/Users/mac/Desktop/cp01_messages.log&apos;.</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://github.com/Dolphin1996/blog-image/blob/master/splunk%E7%AC%94%E8%AE%B006-01.png?raw=true" alt="avatar"></p>
-<h6 id="eg2-1"><a href="#eg2-1" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>哪个产品受HTTP 404错误的影响:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot; status=404 </span><br><span class="line">| chart count by categoryId</span><br></pre></td></tr></table></figure>
+<h6 id="方法3-：通过inputs-conf添加文件或目录输入"><a href="#方法3-：通过inputs-conf添加文件或目录输入" class="headerlink" title="[方法3]：通过inputs.conf添加文件或目录输入"></a>[方法3]：通过<code>inputs.conf</code>添加文件或目录输入</h6><p>需要多个文件输入时，这是一个很好的办法，添加完后需要重启Splunk，打开<code>splunk/etc/system/local/inputs.conf</code>添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[monitor:///Users/mac/Desktop/cp01_messages.log]</span><br><span class="line">Sourcetype =linux_messages</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://github.com/Dolphin1996/blog-image/blob/master/splunk%E7%AC%94%E8%AE%B006-02.png?raw=true" alt="avatar"></p>
-<h6 id="eg3"><a href="#eg3" class="headerlink" title="[eg3]"></a>[eg3]</h6><p>制作网站的购买趋势，<code>sparkline</code>函数可以绘制折线图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot; </span><br><span class="line">| chart sparkline(count(eval(action=&quot;purchase&quot;))) AS &quot;Purchases Trend&quot; count(eval(action=&quot;purchase&quot;)) AS Total by categoryId</span><br></pre></td></tr></table></figure>
+<h6 id="方法3-：通过CLI一次性索引数据文件"><a href="#方法3-：通过CLI一次性索引数据文件" class="headerlink" title="[方法3]：通过CLI一次性索引数据文件"></a>[方法3]：通过CLI一次性索引数据文件</h6><p>在<code>/splunk</code>路径，使用<code>oneshot</code>命令告知文件位置及参数:<br><code>./splunk add oneshot xxxxx</code><br>或者进入<code>splunk/var/spool/splun</code>k路径，打开终端，使用<code>spool</code>命令添加文件：<code>./splunk spool xxxxx</code></p>
+<h4 id="2-从网络端口获取数据"><a href="#2-从网络端口获取数据" class="headerlink" title="2. 从网络端口获取数据"></a>2. 从网络端口获取数据</h4><h6 id="方法1-：通过Splunk-GUI导入文件或目录-1"><a href="#方法1-：通过Splunk-GUI导入文件或目录-1" class="headerlink" title="[方法1]：通过Splunk GUI导入文件或目录"></a>[方法1]：通过Splunk GUI导入文件或目录</h6><h6 id="方法2-：通过CLI（命令行界面）添加文件或目录输入-1"><a href="#方法2-：通过CLI（命令行界面）添加文件或目录输入-1" class="headerlink" title="[方法2]：通过CLI（命令行界面）添加文件或目录输入"></a>[方法2]：通过CLI（命令行界面）添加文件或目录输入</h6><p>进入<code>/splunk/bin</code>目录下，打开终端，这里选择UDP协议的514端口，源类型设置为<code>syslog</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[.splunk add udp 514 -sourcetype syslog]</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://github.com/Dolphin1996/blog-image/blob/master/splunk%E7%AC%94%E8%AE%B006-03.png?raw=true" alt="avatar"></p>
-<h6 id="eg3-1"><a href="#eg3-1" class="headerlink" title="[eg3]"></a>[eg3]</h6><p>制作事务的持续时间，按同一个IP地址组合，选择10分钟内完成的事务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot;  action=purchase </span><br><span class="line">| transaction clientip maxspan=10m </span><br><span class="line">| chart count by duration span=log2</span><br></pre></td></tr></table></figure>
+<h6 id="方法3-：通过inputs-conf添加文件或目录输入-1"><a href="#方法3-：通过inputs-conf添加文件或目录输入-1" class="headerlink" title="[方法3]：通过inputs.conf添加文件或目录输入"></a>[方法3]：通过<code>inputs.conf</code>添加文件或目录输入</h6><p>编辑<code>inputs.conf</code>添加输入，选择UDP协议的514端口，源类型设置为<code>syslog</code>，修改后需要重启splunk：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[udp://514]</span><br><span class="line">sourcetype = syslog</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-timechart"><a href="#2-timechart" class="headerlink" title="2. timechart"></a>2. timechart</h4><p>创建的图表使用聚合值是按x轴对应的时间来展示，比例用<code>span</code>控制。</p>
-<h6 id="eg1-1"><a href="#eg1-1" class="headerlink" title="[eg1]"></a>[eg1]</h6><p>最高购买数量的产品，利用<code>usenull</code>排除空值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot;  </span><br><span class="line">| timechart count(eval(action=&quot;purchase&quot;)) by productId usenull=f</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://github.com/Dolphin1996/blog-image/blob/master/splunk%E7%AC%94%E8%AE%B006-04.png?raw=true" alt="avartar"></p>
-<h6 id="eg2-2"><a href="#eg2-2" class="headerlink" title="[eg2]"></a>[eg2]</h6><p>页面浏览率和购买量，<code>per_hour</code>函数在时间线上汇总，用于获取比例一致的数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=&quot;mygizmostoreindex&quot; </span><br><span class="line">|timechart per_hour(eval(method=&quot;GET&quot;)) AS Views, per_hour(eval(action=&quot;purchase&quot;)) AS Purchases</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://github.com/Dolphin1996/blog-image/blob/master/splunk%E7%AC%94%E8%AE%B006-05.png?raw=true" alt="avarar"></p>
 	  
 	</div>
 
@@ -169,12 +156,13 @@ var _hmt = _hmt || [];
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2020/03/16/splunk笔记03/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2020/03/16/splunk笔记05-SPL聚合命令/" type="button" class="btn btn-default ">Next<i
+    <a href="/2020/03/15/splunk笔记01/" type="button" class="btn btn-default ">Next<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -203,7 +191,7 @@ var _hmt = _hmt || [];
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2020-03-17 
+	2020-03-15 
 	</div>
 	
 
